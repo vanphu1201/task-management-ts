@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import Task from "../../../module/task.module";
+import Task from "../module/task.module";
 
 export const index = async (req: Request, res: Response) => {
     const tasks = await Task.find({
