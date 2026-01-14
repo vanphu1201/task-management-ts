@@ -20,6 +20,19 @@ app.get("/tasks", async (req: Request, res: Response) => {
     })
 });
 
+app.get("/tasks/detail/:id", async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const task = await Task.findOne({
+        deleted: false,
+        id: id
+    });
+    console.log(task)
+    res.json({
+        task: task
+    })
+});
+
+
 
 app.listen(port, () => {
     console.log(`App listen on port ${port}`);
