@@ -3,10 +3,14 @@ import { Request, Response } from "express";
 import Task from "../module/task.module";
 
 export const index = async (req: Request, res: Response) => {
-    const tasks = await Task.find({
+    const find = {
         deleted: false
-    });
-    console.log(tasks)
+    };
+
+    if (req.query.status) {
+        find["status"] = req.query.status;
+    }
+    const tasks = await Task.find(find);
     res.json({
         tasks: tasks
     })
