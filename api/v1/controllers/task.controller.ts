@@ -47,7 +47,7 @@ export const index = async (req: Request, res: Response) => {
     // Search
     let objectSearch = searchHelper(req.query);
     if (req.query.keyword) {
-        find.title= objectSearch.regex;
+        find.title = objectSearch.regex;
     }
     // End Search
 
@@ -61,7 +61,7 @@ export const index = async (req: Request, res: Response) => {
         tasks: tasks
     })
 }
-
+// [GET] /api/v1/tasks/detail/:id
 export const detail = async (req: Request, res: Response) => {
     const id = req.params.id;
     const task = await Task.findOne({
@@ -71,4 +71,25 @@ export const detail = async (req: Request, res: Response) => {
     res.json({
         task: task
     })
+}
+
+// [GET] /api/v1/tasks/change/status/:id
+export const changeStatus = async (req: Request, res: Response) => {
+    try {
+        const id: string = req.params.id.toString();
+        const status: string = req.body.status;
+        if (id && status) {
+            await Task.updateOne({ _id: id }, { status: status });
+        }
+
+        res.json({
+            code: 200,
+            message: "Doi trang thai cong viec thanh cong"
+        })
+    } catch (error) {
+        res.json({
+            code: 400,
+            message: "Khong ton tai"
+        })
+    }
 }
