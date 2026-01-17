@@ -103,15 +103,15 @@ export const changeMulti = async (req: Request, res: Response) => {
 
         switch (key) {
             case "status":
-                await Task.updateMany({_id: {$in: ids}}, {status: value});
-                
+                await Task.updateMany({ _id: { $in: ids } }, { status: value });
+
                 res.json({
                     code: 200,
                     message: "Cap nhap trang thai thamh cong"
                 })
 
                 break;
-        
+
             default:
                 res.json({
                     code: 400,
@@ -151,7 +151,7 @@ export const create = async (req: Request, res: Response) => {
 export const edit = async (req: Request, res: Response) => {
     try {
         const id: string = req.params.id.toString();
-        const updateTask = await Task.updateOne({_id: id}, req.body);
+        const updateTask = await Task.updateOne({ _id: id }, req.body);
 
         res.json({
             code: 200,
@@ -165,4 +165,22 @@ export const edit = async (req: Request, res: Response) => {
         })
     }
 }
+
+// [DELETE] /api/v1/tasks/delete/:id
+export const deleteTask = async (req: Request, res: Response) => {
+    try {
+        const id: string = req.params.id.toString();
+        await Task.updateOne({ _id: id }, { deleted: true });
+        res.json({
+            code: 200,
+            meaasge: "Xoa cong viec thanh cong"
+        })
+    } catch (error) {
+        res.json({
+            code: 400,
+            message: "Xoa cong viec that bai"
+        })
+    }
+}
+
 
