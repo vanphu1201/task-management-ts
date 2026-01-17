@@ -107,7 +107,17 @@ export const changeMulti = async (req: Request, res: Response) => {
 
                 res.json({
                     code: 200,
-                    message: "Cap nhap trang thai thamh cong"
+                    message: "Cap nhap trang thai thanh cong"
+                })
+
+                break;
+
+            case "delete":
+                await Task.updateMany({ _id: { $in: ids } }, { deleted: true, deletedAt: new Date() });
+
+                res.json({
+                    code: 200,
+                    message: "Xoa cong viec thanh cong "
                 })
 
                 break;
