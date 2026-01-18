@@ -3,7 +3,6 @@ import { Request, Response } from "express";
 import Task from "../module/task.module";
 import paginationHelper from "../../../helpers/pagination";
 import searchHelper from "../../../helpers/search";
-import { title } from "node:process";
 
 export const index = async (req: Request, res: Response) => {
     // Find
